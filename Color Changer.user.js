@@ -1,23 +1,10 @@
 // ==UserScript==
 // @name Color Changer
-// @version      0.2
-// @author       Cassandra Ivy
+// @version      0.8
+// @author       Stephanie Groat
 // @description A script that changes colors of web pages for whitelisted sites only
 // @match *://*/*
-// @grant GM_addStyle
 // ==/UserScript==
-
-function GM_addStyle(css) {
-  const style = document.getElementById("GM_addStyleBy8626") || (function() {
-    const style = document.createElement('style');
-    style.type = 'text/css';
-    style.id = "GM_addStyleBy8626";
-    document.head.appendChild(style);
-    return style;
-  })();
-  const sheet = style.sheet;
-  sheet.insertRule(css, (sheet.rules || sheet.cssRules || []).length);
-}
 
 function getHost(url) {
   // Use a URL constructor to create a URL object
