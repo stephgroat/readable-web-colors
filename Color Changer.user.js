@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Color Changer
-// @version      0.8
-// @author       Stephanie Groat
+// @version    0.3
+// @author     Cassandra Ivy
 // @description A script that changes colors of web pages for whitelisted sites only
 // @match *://*/*
 // ==/UserScript==
@@ -20,7 +20,7 @@ function addStyleButton() {
   // Set the style of the button
   button.style.width = "100%"; // span the entire width of the screen
   button.style.height = "15px"; // make it 16 pixel tall
-  button.style.backgroundColor = "#282c34"; // set the color to #282c34
+  button.style.backgroundColor = "#1B1E24"; // set the color to #282c34
   button.style.padding = "none"; // no padding
   button.style.margin = "none"; // no margin
   button.style.border = "none"; // remove any border
@@ -40,50 +40,47 @@ function overrideStyles() {
 
   // Add your style rules here using CSS variables with descriptive names
   style.textContent = `
-    :root {
-      --bg-color: #282c34; /* gunmetal */
-      --font-size: 18px;
-      --font-family: Roboto, sans-serif;
-      --text-color: #abb2bf; /* cadet blue */
-      --link-color: #98c379; /* pistachio */
-      --visited-color: #a2babf; /* light steel blue */
-      --hover-color: #c678dd; /* orchid */
-    }
+  :root {
+    --bg-color: #1B1E24; /* gunmetal */
+    --font-size: 18px;
+    --font-family: Roboto, sans-serif;
+    --text-color: #abb2bf; /* cadet blue */
+    --link-color: #98c379; /* pistachio */
+    --visited-color: #a2babf; /* light steel blue */
+    --hover-color: #c678dd; /* orchid */
+  }
 
-    * {
-      background-color: initial !important;
-    }
+  * {
+    background-color: initial !important;
+  }
 
-    html {
-      background-color: #181c24 !important; /* eerie black */
-    }
-    .reading.reading.reading {
-      padding-top: 15px;
-      margin-top: 0% !important;
-      margin-left: calc(15%) !important;
-      margin-right: calc(15%) !important;
-      background-color: var(--bg-color) !important;
-    }
+  html {
+    background-color: #08090A !important; /* eerie black */
+  }
+  .reading.reading.reading {
+    background-color: var(--bg-color) !important;
+    padding-top: 15px !important;
+  }
 
-    .reading > * {
-      font-family: var(--font-family) !important;
-      color: var(--text-color);
-    }
+  .reading > * {
+    font-family: var(--font-family) !important;
+    color: var(--text-color);
+  }
 
-    .reading.reading * > p, .reading.reading * > a, .reading.reading * > span {
-      color: var(--text-color) !important;
-    }
+  .reading.reading * > p, .reading.reading * > a, .reading.reading * > span, .reading.reading * > strong {
+    color: var(--text-color) !important;
+  }
 
-   .reading > h1, .reading.reading * > a:link, .reading.reading * > h1, .reading.reading * > strong {
-     color: var(--link-color) !important;
-    }
+   .reading > h1, .reading.reading * > a:link, .reading.reading * > h1, .reading.reading * > h2, .reading.reading * > h3, .reading.reading * > h4, .reading.reading * > h5{
+   color: var(--link-color) !important;
+  }
 
    .reading.reading * > a:visited {
-     color: var(--visited-color) !important;
+   color: var(--visited-color) !important;
    }
 
    .reading.reading * > a:hover {
-     color: var(--hover-color) !important;
+   color: var(--hover-color) !important;
    }
   `;
 
@@ -94,7 +91,7 @@ function overrideStyles() {
 
 // Define an array of whitelisted sites
 var whitelist = [
-    "marxists.org",
+  "marxists.org",
 ];
 
 document.body.classList.add("reading");
