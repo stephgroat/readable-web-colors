@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name Color Changer
-// @version    0.3
+// @version    0.5
 // @author     Cassandra Ivy
 // @description A script that changes colors of web pages for whitelisted sites only
 // @match *://*/*
@@ -14,23 +14,27 @@ function getHost(url) {
 }
 
 function addStyleButton() {
+  var div = document.createElement("div");
+  div.style.width = "100%"; // span the entire width of the screen
+  div.style.height = "12px";
   // Create a button element
   var button = document.createElement("button");
 
   // Set the style of the button
   button.style.width = "100%"; // span the entire width of the screen
-  button.style.height = "15px"; // make it 16 pixel tall
+  button.style.height = "12px"; // make it 16 pixel tall
   button.style.backgroundColor = "#1B1E24"; // set the color to #282c34
-  button.style.padding = "none"; // no padding
-  button.style.margin = "none"; // no margin
-  button.style.border = "none"; // remove any border
+  button.style.paddingTop = "0px"; // no padding
+  button.style.paddingBottom = "0px"; // no padding
   button.style.zIndex = "9999"; // draw on top
+  button.style.position = "absolute";
   // Add an event listener to delete the button when clicked
   button.addEventListener("click", function() {
     overrideStyles();
     this.remove();
   });
   // Insert the button as the first element of the body
+  document.body.insertBefore(div, document.body.firstChild);
   document.body.insertBefore(button, document.body.firstChild);
 }
 
@@ -57,9 +61,9 @@ function overrideStyles() {
   html {
     background-color: #08090A !important; /* eerie black */
   }
-  .reading.reading.reading {
+  .reading.reading.reading.reading {
     background-color: var(--bg-color) !important;
-    padding-top: 15px !important;
+    padding-top: 5px !important;
   }
 
   .reading > * {
@@ -71,9 +75,11 @@ function overrideStyles() {
     color: var(--text-color) !important;
   }
 
-   .reading > h1, .reading.reading * > a:link, .reading.reading * > h1, .reading.reading * > h2, .reading.reading * > h3, .reading.reading * > h4, .reading.reading * > h5{
-   color: var(--link-color) !important;
-  }
+   .reading > h1, .reading.reading * > a:link, .reading.reading * > h1, .reading.reading * > h2,
+   .reading.reading * > h3, .reading.reading * > h4, .reading.reading * > h5, .reading.reading * > label
+   {
+     color: var(--link-color) !important;
+   }
 
    .reading.reading * > a:visited {
    color: var(--visited-color) !important;
@@ -108,7 +114,7 @@ for (var i = 0; i < whitelist.length; i++) {
   if (currentHost.includes(whitelist[i])) {
     whitelisted = true;
     overrideStyles();
-    break;
+      break;
   }
 }
 
